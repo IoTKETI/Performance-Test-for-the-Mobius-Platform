@@ -3,6 +3,7 @@ To share the performance test results for the Mobius platform
 
 
 [ Mobius 플랫폼에 대한 성능 테스트 수행 결과 보고서 ]
+첨부 문서: 성능테스트 결과보고서-20191122.pdf
 
 1. Mobius 성능 테스트 이유와 목적
 - Mobius 플랫폼을 활용하는 중.소 기업들을 위해 Mobius 플랫폼이 성능이 어느 정도인지 파악할수 있도록 하며,
