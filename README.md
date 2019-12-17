@@ -1,37 +1,33 @@
 # Performance-Test-for-the-Mobius-Platform.
-To share the performance test results for the Mobius platform
 
+## Introduction
+Mobius 플랫폼을 활용하는 중.소 기업들을 위해 Mobius 플랫폼이 성능이 어느 정도인지 파악할수 있도록 하며, 가용성 측면의 성능을 향상시키기 위한 방법과 확장성 측면의 성능을 향상시키기 위한 시스템의 구성 방안을 실제 성능 테스트 수행 결과를 기반으로 그 결과를 공유하고자 한다.
 
-[ Mobius 플랫폼에 대한 성능 테스트 수행 결과 보고서 ]
-첨부 문서: 성능테스트 결과보고서-20191122.pdf
+개방형 IoT 오픈 플랫폼(Mobius)에 대한 성능 테스트 환경 구축, 수행은 타겟 시스템에 대한 성능 테스트 및 진단을 통하여 시스템의 성능 저하 요인 등을 파악하고 이에 대한 개선을 통한 서버 처리능력의 향상을 목적으로 한다.
+개방형 IoT 오픈 플랫폼(Mobius)이 적용된 시스템에 대한 성능 테스트의 방법 및 절차에 대한 기준을 제시한다. 이를 통하여 IoT 오픈 플랫폼 활용 기업의 시스템 성능을 위한 가이드로 활용될 수 있도록 한다.
 
-1. Mobius 성능 테스트 이유와 목적
-- Mobius 플랫폼을 활용하는 중.소 기업들을 위해 Mobius 플랫폼이 성능이 어느 정도인지 파악할수 있도록 하며,
-가용성 측면의 성능을 향상시키기 위한 방법과 확장성 측면의 성능을 향상시키기 위한 시스템의 구성 방안을 
-실제 성능 테스트 수행 결과를 기반으로 그 결과를 공유하고자 한다.
+## Performance Test Case
 
-2. 개요
-- 개방형 IoT 오픈 플랫폼(Mobius)에 대한 성능 테스트 환경 구축, 수행은 타겟 시스템에 대한 성능 테스트 및 진단을 통하여 시스템의 성능 저하 요인 등을 파악하고 이에 대한 개선을 통한 서버 처리능력의 향상을 목적으로 한다.
-- 개방형 IoT 오픈 플랫폼(Mobius)이 적용된 시스템에 대한 성능 테스트의 방법 및 절차에 대한 기준을 제시한다. 이를 통하여 IoT 오픈 플랫폼 활용 기업의 시스템 성능을 위한 가이드로 활용될 수 있도록 한다.
+### Performance test in terms of availability.
 
-3. 성능 테스트 목표치 도출 방안
-- 특정 서비스의 처리 속도를 계산하기 위해 TPS(Transaction Per Second), 응답시간(Reponse time), 서버 자원사용율(CPU, Memory)등을 측정한다
-- 성능테스트 수행시 서버의 CPU 사용율은 70%이하가 되도록 부하를 발생시켜 측정한다
+#### - Single Server Configuration environment ( Mobius, MQTT Broker, Maria Database )
+<img width="890" alt="스크린샷 2019-12-17 오후 4 27 09" src="https://user-images.githubusercontent.com/29790334/70976526-71fe8680-20ef-11ea-9f2f-5dc1427f8440.png">
 
-4. 일반적인 성능 테스트 종류
-- 단위 성능 테스트 : 대상 업무 단위로 진행, 업무별 임계치 확인
-- 복합 성능 테스트 : 실사용자를 가정하여 테스트, 시나리오 기반 테스트
-- 임계 성능 테스트 : 시스템의 임계치를 테스트하여 대안을 마련
+#### - Mulity Server Configuration environment ( (Mobius, MQTT Broker, Maria Database) X 3 Set, L4 Switch )
+<img width="883" alt="스크린샷 2019-12-17 오후 4 27 21" src="https://user-images.githubusercontent.com/29790334/70976556-7f1b7580-20ef-11ea-81b7-09188bd2d54f.png">
 
-5. 성능 테스트 방법
-- Load 테스트: 시스템의 성능을 벤치 마크하기 위한 테스트를 의미한다. 이 테스트는 부하(Load)를 순차적으로 증가시키면서 응답시간이 급격히 증가하거나 더는 처리량이 증가하지 않거나 시스템의 CPU와 Memory 등이 기준값 이상으로 증가하는 등 비정상 상태가 발생하는 임계점을 찾아내고 이를 바탕으로 성능 이슈에 대한 튜닝과 테스트를 반복한다
-- Stress 테스트: 임계값 이상의 요청이나 비정상적인 요청을 보내 비정상적인 상황의 처리 상태를 확인하고 시스템의 최고 성능 한계를 측정하기 위한 테스트이다.
-- Spike 테스트: 갑자기 사용자가 몰렸을 때 요청이 정상적으로 처리되는지 그리고 그 업무 부하(Workload)가 줄어들때 정상적으로 반응하지는지를 확인하기 위한 테스트이다
-- Stability 테스트 / Soak 테스트: 긴 시간 동안 테스트를 진행해서 테스트 시간에 따른 시스템의 메모리 증가, 성능 정보의 변화 등을 확인하는 테스트이다
+### Performance test in terms of scalability.
 
-6. 성능 테스트 구성 요소
-- 테스트 조직에 의한 계획 수립 : 테스트 목적, 테스트 범위 정의, 조직 구성
-- 테스트 환경 사전 준비 : 테스트 환경 준비, 목표 부합 가능한 환경 준비
-- 테스트 수행 도구 준비 : 시뮬레이션 측정 가능한 도구 준비, 유연하게 측정 가능한 도구 준비
-- 테스트 스크립트 준비 : 테스트 수행을 위한 테스트 스크립트 준비, 테스트 목적에 맞게 튜닝
-- 테스트 수행 : 테스트 수행 결과 레포트 보고, 성능 개선 방안 도출, 성능 회기 테스트 수행, 최종 결과 보고서 도출
+#### - Single Service Server + Single Database ( (Mobius, MQTT Broker) , Maria Database )
+<img width="891" alt="스크린샷 2019-12-17 오후 4 27 31" src="https://user-images.githubusercontent.com/29790334/70976557-7f1b7580-20ef-11ea-9938-60e37df6fa00.png">
+
+#### - Multiy Service Server + Single Database ( (Mobius, MQTT Broker) X 2 Set , Maria Database, L4 Switch )
+<img width="883" alt="스크린샷 2019-12-17 오후 4 27 41" src="https://user-images.githubusercontent.com/29790334/70976558-7fb40c00-20ef-11ea-9b4b-a37bbaf43ad3.png">
+
+## Performace Testing Tools & Agent PC
+Apache Jmeter v5.1.1 : one of the leading tools used for load testing of web and application servers. ( Open Source )
+
+Jmeter Agent running PC ( 7 Set )
+
+## Author
+Dong Ha Park (araha@keti.re.kr)
